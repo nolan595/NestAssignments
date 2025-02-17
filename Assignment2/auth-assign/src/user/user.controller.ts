@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } fro
 import { UserService } from './user.service';
 import { User } from '@prisma/client';
 import { LocalGuard } from 'src/auth/guards/local.guard';
+import { ApiOperation } from '@nestjs/swagger';
 
 @Controller('user')
 export class UserController {
