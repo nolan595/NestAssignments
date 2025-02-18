@@ -9,11 +9,20 @@ import { LocalStrategy } from './strategies/local.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
 
 @Module({
-  imports : [PassportModule, JwtModule.register({
-    secret: 'secret',
-    signOptions: { expiresIn: '1d' }
-  })],
+  imports: [
+    PassportModule,
+    JwtModule.register({
+      secret: process.env.SECRET,
+      signOptions: { expiresIn: '1d' },
+    }),
+  ],
   controllers: [AuthController],
-  providers: [AuthService, UserService, PrismaService, LocalStrategy, JwtStrategy]
+  providers: [
+    AuthService,
+    UserService,
+    PrismaService,
+    LocalStrategy,
+    JwtStrategy,
+  ],
 })
 export class AuthModule {}

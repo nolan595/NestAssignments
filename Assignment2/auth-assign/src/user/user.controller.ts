@@ -1,15 +1,23 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { UserService } from './user.service';
-import { User } from '@prisma/client';
-import { LocalGuard } from 'src/auth/guards/local.guard';
-import { ApiOperation } from '@nestjs/swagger';
+
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  create(@Body() userNew: User) {
+  create(@Body() userNew: CreateUserDto) {
     return this.userService.create(userNew);
   }
 
@@ -24,14 +32,12 @@ export class UserController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body()  newUser: User) {
+  update(@Param('id') id: string, @Body() newUser: UpdateUserDto) {
     return this.userService.update(+id, newUser);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.userService.remove(+id);
-
   }
-
 }
